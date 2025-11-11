@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class LooplyApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(LooplyApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(LooplyApplication.class, args);
+  }
 }
