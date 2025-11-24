@@ -1,4 +1,4 @@
-package com.princeworks.looply.payload;
+package com.princeworks.looply.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
