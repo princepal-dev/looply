@@ -1,6 +1,5 @@
-package com.princeworks.looply.payload;
+package com.princeworks.looply.payload.request;
 
-import com.princeworks.looply.model.MessageAttachment;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;

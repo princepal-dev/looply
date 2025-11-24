@@ -1,8 +1,9 @@
 package com.princeworks.looply.service;
 
-import com.princeworks.looply.payload.MessageDTO;
+import com.princeworks.looply.payload.request.MessageDTO;
+import com.princeworks.looply.payload.response.MessageResponseDTO;
 import jakarta.validation.Valid;
 
 public interface MessageService {
-    MessageDTO createNewMessage(@Valid MessageDTO messageDTO);
+    MessageResponseDTO createNewMessage(@Valid MessageDTO messageDTO);
 }
