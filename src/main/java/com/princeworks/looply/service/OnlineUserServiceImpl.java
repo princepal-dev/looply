@@ -6,47 +6,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
-  private final ConcurrentHashMap<String, Long> sessionToUserMap = new ConcurrentHashMap<>();
-  private final ConcurrentHashMap<Long, Set<String>> userToSessionMap = new ConcurrentHashMap<>();
+  private final Set<Long> onlineUsers = ConcurrentHashMap.newKeySet();
 
   @Override
-  public void addUser(String sessionId, Long userId) {
-    if (!sessionToUserMap.containsKey(sessionId)) {
-      sessionToUserMap.put(sessionId, userId);
-    }
-    if (!userToSessionMap.containsKey(userId)) {
-      Set<String> session = ConcurrentHashMap.newKeySet();
-      session.add(sessionId);
-      userToSessionMap.put(userId, session);
-    } else {
-      Set<String> session = userToSessionMap.get(userId);
-      session.add(sessionId);
-    }
+  public void markOnline(Long userId) {
+      onlineUsers.add(userId);
   }
 
   @Override
-  public void removeUser(String sessionId) {
-    Long userId = sessionToUserMap.get(sessionId);
-    sessionToUserMap.remove(sessionId);
-    Set<String> userActiveSessions = userToSessionMap.get(userId);
-    if (userId != null && userActiveSessions != null) {
-      userActiveSessions.remove(sessionId);
-      if (userActiveSessions.isEmpty()) userToSessionMap.remove(userId);
-    }
+  public void markOffline(Long userId) {
+      onlineUsers.remove(userId);
   }
 
   @Override
-  public Long getUserId(String sessionId) {
-    return sessionToUserMap.get(sessionId);
+  public boolean isOnline(Long userId) {
+    return onlineUsers.contains(userId);
   }
 
   @Override
-  public int getOnlineUsers() {
-    return userToSessionMap.size();
+  public int countOnlineUsers() {
+    return onlineUsers.size();
   }
 
   @Override
-  public Boolean isUserOnline(Long userId) {
-    return userToSessionMap.containsKey(userId) && !userToSessionMap.get(userId).isEmpty();
+  public Set<Long> getAllOnlineUsers() {
+    return Set.copyOf(onlineUsers);
   }
 }
